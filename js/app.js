@@ -74,21 +74,7 @@ function initialize(){
 			}
 		}
 		map.fitBounds(bounds);
-	})
+	});
 }
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
