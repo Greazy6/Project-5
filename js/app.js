@@ -77,4 +77,21 @@ function initialize(){
 	});
 }
 
+function getAllPlaces(place){
+    var myPlace = {};    
+    myPlace.place_id = place.place_id;
+    myPlace.position = place.geometry.location.toString();
+    myPlace.name = place.name;
+
+    var address;    
+    if (place.vicinity !== undefined) {
+      address = place.vicinity;
+    } else if (place.formatted_address !== undefined) {
+      address = place.formatted_address;
+    }
+    myPlace.address = address;
+    
+    self.allPlaces.push(myPlace);                
+  }
+
 google.maps.event.addDomListener(window, 'load', initialize);
