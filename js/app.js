@@ -59,6 +59,11 @@ function initialize(){
 
 	var input = (document.getElementById('mapsearch'));
 	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+	var list = (document.getElementById('list'));
+	map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(list);
+
+
 	var searchBox = new google.maps.places.SearchBox((input));
 
 	google.maps.event.addListener(searchBox, 'places_changed', function() {
