@@ -63,6 +63,9 @@ function initialize(){
 	var list = (document.getElementById('list'));
 	map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(list);
 
+	var title = (document.getElementById('title'));
+	map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
+
 
 	var searchBox = new google.maps.places.SearchBox((input));
 
