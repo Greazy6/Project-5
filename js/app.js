@@ -84,6 +84,12 @@ function initialize(){
 		map.fitBounds(bounds);
 	});
 }
+function getPlaces() {
+    var request = {
+      location: kenyaLoc,
+      radius: 600,
+      types: ['restaurant', 'bar', 'cafe', 'food']
+    };
 
 function getAllPlaces(place){
     var myPlace = {};    
