@@ -215,8 +215,8 @@ function appViewModel() {
       lng = latAndLng.lng(); 
   }
 
-  var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search' + loc1 + '
-  &format=json&callback=wikiCallback';
+  var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search' + loc1 + ' &format=json&callback=wikiCallback';
+  
 
 
   var wikiRequestTimeout = setTimeout(function(){
@@ -230,11 +230,11 @@ function appViewModel() {
   	dataType: "jsonp",
   	success: function (response){
       var articleList = response[1];
-      for(i =0; i < article.length; i++;){
+      for(i =0; i < article.length; i++){
         articleStr = articleList[i];
       var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-      loc1.append('<p><a href="' + url '">' +
-      articleStr + '</a></p> ');
+      loc1.append('<p><a href="' + url + '">' + articleStr + '</a></p> ');
+      
     };
     clearTimeout(wikiRequestTimeout);
   }
