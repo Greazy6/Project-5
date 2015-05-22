@@ -198,9 +198,9 @@ function appViewModel() {
   var infowindow;
   var lat = '';
   var lng = '';
-  self.loc1 = $('#title').text();
   var kenyaLoc = new google.maps.LatLng(-4.043477, 39.668206);
   var markersArray = [];  
+  var $loc = $('#title');
 
   // array to hold info for knockout
   self.allPlaces = ko.observableArray([]);
@@ -215,31 +215,30 @@ function appViewModel() {
       lng = latAndLng.lng(); 
   }
 
-  var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search' + self.loc1 + ' &format=json&callback=wikiCallback';
-  
-
-
-  var wikiRequestTimeout = setTimeout(function(){
-    loc1.text("failed to get wikipedia resources");
-  }, 8000);
-
-
-
-  $.ajax({
-  	url: wikiUrl,
-  	dataType: "jsonp",
-  	success: function (response){
-      var articleList = response[1];
-      for(i =0; i < articleList.length; i++){
+  var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search='+$loc.text()+'&format=json&callback=wikiCallback';
+  console.log($loc.text());
+    
+  self.showLink = function() {
+    var wikiRequestTimeout = setTimeout(function(){
+      $loc.append("<p>failed to get wikipedia resources</p>");
+    }, 3000);
+    $.ajax({
+     url: wikiUrl,
+     dataType: "jsonp",
+     success: function (response){
+       var articleList = response[1];
+       for(i =0; i < articleList.length; i++){
         articleStr = articleList[i];
-      var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-      loc1.append('<p><a href="' + url + '">' + articleStr + '</a></p> ');
+        var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+        $loc.append('<p><a href="' + url + '">' + articleStr + '</a></p>');
       
-    };
-    clearTimeout(wikiRequestTimeout);
-  }
-  });
+      }
+      clearTimeout(wikiRequestTimeout);
+    }
+    });
+  };
   
+ 
   /*
   Loads the map as well as position the search bar and list.  On a search, clearOverlays removes all markers already on the map and removes all info in allPlaces.  Then, once a search is complete, populates more markers and sends the info to getAllPlaces to populate allPlaces again.
   */
@@ -255,8 +254,8 @@ function appViewModel() {
     var input = (document.getElementById('pac-input'));
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     var title = (document.getElementById('title'));
-
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
+
     var searchBox = new google.maps.places.SearchBox(
       (input));
     google.maps.event.addListener(searchBox, 'places_changed', function() {
@@ -375,7 +374,7 @@ function appViewModel() {
                 self.foursquareInfo += 'Name: ' +
                   venueName + '<br>';
             } else {
-              self.foursquareInfo += 'Name: Not Found';
+              self.foursquareInfo += 'Name: Not Found' + '<br>';
             }   
         // Phone Number     
         var phoneNum = venue.contact.formattedPhone;
@@ -383,14 +382,16 @@ function appViewModel() {
                 self.foursquareInfo += 'Phone: ' +
                   phoneNum + '<br>';
             } else {
-              self.foursquareInfo += 'Phone: Not Found';
+              self.foursquareInfo += 'Phone: Not Found' + '<br>';
             }
         // Twitter
         var twitterId = venue.contact.twitter;
             if (twitterId !== null && twitterId !== undefined) {
               self.foursquareInfo += 'twitter: @' +
                   twitterId + '<br>';
-            } 
+            } else {
+              self.foursquareInfo += 'twitter: Not Found' + '<br>';
+            }
       });
   };  
  
@@ -408,9 +409,6 @@ function appViewModel() {
     } 
     self.getFoursquareInfo(place);         
     map.panTo(marker.position);
-
-    var title = (document.getElementById('title'));
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);   
 
     // waits 300 milliseconds for the getFoursquare async function to finish
     setTimeout(function() {
