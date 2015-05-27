@@ -514,7 +514,7 @@ var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search='+ sea
 self.showLink = function() {
 var wikiRequestTimeout = setTimeout(function(){
 $loc.append("<p>failed to get wikipedia resources</p>");
-}, 3000);
+}, 5000);
 $.ajax({
 url: wikiUrl,
 dataType: "jsonp",

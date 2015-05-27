@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<input id="pac-input" class="controls" type="text" size="50"
+    <input id="pac-input" class="controls" type="text" size="50"
         placeholder="Enter a Location">
     <div id="map-canvas"></div>
     <div id="list">
@@ -28,9 +28,8 @@
             </li>
         </ul>
     </div>
-	<div id="title">
-		<h1 data-bind="click: showLink"></h1>
-        <p></p>		
-	</div>
+    <div id="title" data-bind="click: showLink">
+        <h1 id ="city"></h1>        
+    </div>
 </body>
 </html>
