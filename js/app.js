@@ -520,7 +520,7 @@ function appViewModel() {
         for(i =0; i < articleList.length; i++) {
           articleStr = articleList[i];
           var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-          $city.append('<p><a href="' + url + '">' + articleStr + '</a></p>');
+          $city.append('<p><a href=" + url + "></a></p>');
         }
         clearTimeout(wikiRequestTimeout);
       }
